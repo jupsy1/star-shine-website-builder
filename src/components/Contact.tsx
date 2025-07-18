@@ -5,9 +5,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Send, Clock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase"; // Import your Supabase client
 
 export const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -25,8 +27,9 @@ export const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
     // Basic validation
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.businessName) {
@@ -35,25 +38,62 @@ export const Contact = () => {
         description: "First Name, Last Name, Email, and Business Name are required.",
         variant: "destructive",
       });
+      setIsSubmitting(false);
       return;
     }
 
-    // Success message
-    toast({
-      title: "Audit Request Submitted!",
-      description: "We'll contact you within 24 hours with your free reputation audit.",
-    });
+    try {
+      // Actually save to Supabase
+      const { data, error } = await supabase
+        .from('contact_requests') // Replace with your actual table name
+        .insert([{
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          business_name: formData.businessName,
+          website: formData.website,
+          message: formData.message,
+          created_at: new Date().toISOString()
+        }]);
 
-    // Reset form
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      businessName: '',
-      website: '',
-      message: ''
-    });
+      if (error) {
+        console.error('Supabase error:', error);
+        toast({
+          title: "Submission failed",
+          description: "There was an error submitting your request. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Success message
+      toast({
+        title: "Audit Request Submitted!",
+        description: "We'll contact you within 24 hours with your free reputation audit.",
+      });
+
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        businessName: '',
+        website: '',
+        message: ''
+      });
+
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast({
+        title: "Submission failed",
+        description: "There was an unexpected error. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const scrollToContact = () => {
@@ -102,6 +142,7 @@ export const Contact = () => {
                         placeholder="Enter your first name" 
                         className="border-border" 
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div>
@@ -113,6 +154,7 @@ export const Contact = () => {
                         placeholder="Enter your last name" 
                         className="border-border" 
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -128,6 +170,7 @@ export const Contact = () => {
                         placeholder="your@email.com" 
                         className="border-border" 
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div>
@@ -138,6 +181,7 @@ export const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="07398243131" 
                         className="border-border" 
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -151,6 +195,7 @@ export const Contact = () => {
                       placeholder="Enter your business name" 
                       className="border-border" 
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                   
@@ -162,6 +207,7 @@ export const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="https://yourbusiness.com" 
                       className="border-border" 
+                      disabled={isSubmitting}
                     />
                   </div>
                   
@@ -173,12 +219,13 @@ export const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="Describe any negative reviews, rating issues, or reputation concerns you're facing..."
                       className="min-h-[120px] border-border"
+                      disabled={isSubmitting}
                     />
                   </div>
                   
-                  <Button type="submit" size="lg" className="w-full">
+                  <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                     <Send className="mr-2 h-5 w-5" />
-                    Get My Free Audit
+                    {isSubmitting ? 'Submitting...' : 'Get My Free Audit'}
                   </Button>
                 </form>
                 
