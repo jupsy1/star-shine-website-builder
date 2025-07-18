@@ -45,7 +45,7 @@ export const Contact = () => {
     try {
       // Actually save to Supabase
       const { data, error } = await supabase
-        .from('contact_requests') // Replace with your actual table name
+        .from('reputation_audits') // Replace with your actual table name
         .insert([{
           first_name: formData.firstName,
           last_name: formData.lastName,
