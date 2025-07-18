@@ -55,7 +55,7 @@ export const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-accent flex-shrink-0" />
                 <div>
-                  <div className="font-medium">(555) 123-4567</div>
+                  <div className="font-medium">07398243131</div>
                   <div className="text-sm text-white/60">Mon-Fri 8AM-6PM EST</div>
                 </div>
               </div>
@@ -71,9 +71,10 @@ export const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-1" />
                 <div>
-                  <div className="font-medium">123 Business Ave</div>
-                  <div className="text-white/80">Suite 100</div>
-                  <div className="text-white/80">New York, NY 10001</div>
+                  <div className="font-medium">Innovation House</div>
+                  <div className="text-white/80">131 Broad Street</div>
+                  <div className="text-white/80">Birmingham, B1 2HF</div>
+                  <div className="text-white/80">United Kingdom</div>
                 </div>
               </div>
             </div>

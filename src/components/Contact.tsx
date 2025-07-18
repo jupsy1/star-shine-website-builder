@@ -103,7 +103,7 @@ export const Contact = () => {
                     </div>
                     <div>
                       <div className="font-semibold">Phone</div>
-                      <div className="text-muted-foreground">(555) 123-4567</div>
+                      <div className="text-muted-foreground">07398243131</div>
                       <div className="text-sm text-muted-foreground">Mon-Fri 8AM-6PM EST</div>
                     </div>
                   </div>
@@ -125,7 +125,7 @@ export const Contact = () => {
                     </div>
                     <div>
                       <div className="font-semibold">Office</div>
-                      <div className="text-muted-foreground">123 Business Ave<br />Suite 100<br />New York, NY 10001</div>
+                      <div className="text-muted-foreground">Innovation House<br />131 Broad Street<br />Birmingham, B1 2HF<br />United Kingdom</div>
                     </div>
                   </div>
                 </div>
