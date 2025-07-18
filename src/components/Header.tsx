@@ -42,7 +42,11 @@ export const Header = () => {
                 <span>info@repairyourstars.com</span>
               </div>
             </div>
-            <Button variant="professional" size="sm">
+            <Button 
+              variant="professional" 
+              size="sm"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Get Started
             </Button>
           </div>

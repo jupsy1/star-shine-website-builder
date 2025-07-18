@@ -3,8 +3,63 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Send, Clock } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export const Contact = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    businessName: '',
+    website: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.businessName) {
+      toast({
+        title: "Please fill in all required fields",
+        description: "First Name, Last Name, Email, and Business Name are required.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Success message
+    toast({
+      title: "Audit Request Submitted!",
+      description: "We'll contact you within 24 hours with your free reputation audit.",
+    });
+
+    // Reset form
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      businessName: '',
+      website: '',
+      message: ''
+    });
+  };
+
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="contact" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -36,50 +91,96 @@ export const Contact = () => {
                 </p>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">First Name *</label>
-                    <Input placeholder="Enter your first name" className="border-border" />
+                <form onSubmit={handleSubmit}>
+                  <div className="grid md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">First Name *</label>
+                      <Input 
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        placeholder="Enter your first name" 
+                        className="border-border" 
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Last Name *</label>
+                      <Input 
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        placeholder="Enter your last name" 
+                        className="border-border" 
+                        required
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Last Name *</label>
-                    <Input placeholder="Enter your last name" className="border-border" />
+                  
+                  <div className="grid md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Email Address *</label>
+                      <Input 
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="your@email.com" 
+                        className="border-border" 
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Phone Number</label>
+                      <Input 
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="07398243131" 
+                        className="border-border" 
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Email Address *</label>
-                    <Input type="email" placeholder="your@email.com" className="border-border" />
+                  
+                  <div className="mb-6">
+                    <label className="text-sm font-medium mb-2 block">Business Name *</label>
+                    <Input 
+                      name="businessName"
+                      value={formData.businessName}
+                      onChange={handleInputChange}
+                      placeholder="Enter your business name" 
+                      className="border-border" 
+                      required
+                    />
                   </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Phone Number</label>
-                    <Input placeholder="(555) 123-4567" className="border-border" />
+                  
+                  <div className="mb-6">
+                    <label className="text-sm font-medium mb-2 block">Website URL</label>
+                    <Input 
+                      name="website"
+                      value={formData.website}
+                      onChange={handleInputChange}
+                      placeholder="https://yourbusiness.com" 
+                      className="border-border" 
+                    />
                   </div>
-                </div>
-                
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Business Name *</label>
-                  <Input placeholder="Enter your business name" className="border-border" />
-                </div>
-                
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Website URL</label>
-                  <Input placeholder="https://yourbusiness.com" className="border-border" />
-                </div>
-                
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Tell us about your reputation challenges</label>
-                  <Textarea 
-                    placeholder="Describe any negative reviews, rating issues, or reputation concerns you're facing..."
-                    className="min-h-[120px] border-border"
-                  />
-                </div>
-                
-                <Button size="lg" className="w-full">
-                  <Send className="mr-2 h-5 w-5" />
-                  Get My Free Audit
-                </Button>
+                  
+                  <div className="mb-6">
+                    <label className="text-sm font-medium mb-2 block">Tell us about your reputation challenges</label>
+                    <Textarea 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Describe any negative reviews, rating issues, or reputation concerns you're facing..."
+                      className="min-h-[120px] border-border"
+                    />
+                  </div>
+                  
+                  <Button type="submit" size="lg" className="w-full">
+                    <Send className="mr-2 h-5 w-5" />
+                    Get My Free Audit
+                  </Button>
+                </form>
                 
                 <p className="text-xs text-muted-foreground text-center">
                   By submitting this form, you agree to receive communications from RepairYourStars. 
@@ -140,7 +241,12 @@ export const Contact = () => {
                 <p className="text-muted-foreground text-sm mb-4">
                   Dealing with a reputation emergency? We offer 24/7 crisis support.
                 </p>
-                <Button variant="outline" size="sm" className="text-warning-orange border-warning-orange hover:bg-warning-orange hover:text-white">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="text-warning-orange border-warning-orange hover:bg-warning-orange hover:text-white"
+                  onClick={scrollToContact}
+                >
                   Emergency Support
                 </Button>
               </CardContent>
