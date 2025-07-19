@@ -53,8 +53,7 @@ export const Contact = () => {
           phone: formData.phone,
           business_name: formData.businessName,
           website: formData.website,
-          message: formData.message,
-          created_at: new Date().toISOString()
+          message: formData.message
         }]);
 
       if (error) {
