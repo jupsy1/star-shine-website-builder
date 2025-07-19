@@ -35,7 +35,7 @@ export const Header = () => {
             <div className="hidden lg:flex items-center space-x-4 text-sm">
               <div className="flex items-center space-x-1 text-muted-foreground">
                 <Phone className="h-4 w-4" />
-                <span>07398243131</span>
+                <span>0121 529 1701</span>
               </div>
               <div className="flex items-center space-x-1 text-muted-foreground">
                 <Mail className="h-4 w-4" />
