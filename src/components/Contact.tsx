@@ -54,8 +54,7 @@ export const Contact = () => {
           business_name: formData.businessName,
           website_url: formData.website,
           reputation_challenges: formData.message,
-          created_at: new Date().toISOString()
-        }]);
+         }]);
 
       if (error) {
         console.error('Supabase error:', error);
