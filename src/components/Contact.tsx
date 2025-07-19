@@ -50,11 +50,10 @@ export const Contact = () => {
           first_name: formData.firstName,
           last_name: formData.lastName,
           email: formData.email,
-          phone: formData.phone,
+          phone_number: formData.phone,
           business_name: formData.businessName,
-          website: formData.website,
-          message: formData.message,
-          created_at: new Date().toISOString()
+          website_url: formData.website,
+          reputation_challenges: formData.message
         }]);
 
       if (error) {
