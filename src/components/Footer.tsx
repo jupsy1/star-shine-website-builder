@@ -63,7 +63,7 @@ export const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-accent flex-shrink-0" />
                 <div>
-                  <div className="font-medium">info@repairyourstars.com</div>
+                  <div className="font-medium">jay@repairyourstars.com</div>
                   <div className="text-sm text-white/60">24hr response time</div>
                 </div>
               </div>
