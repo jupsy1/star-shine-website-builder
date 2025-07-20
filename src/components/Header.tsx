@@ -39,7 +39,7 @@ export const Header = () => {
               </div>
               <div className="flex items-center space-x-1 text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                <span>jay@repairyourstars.com</span>
+                <span>info@repairyourstars.com</span>
               </div>
             </div>
             <Button 
