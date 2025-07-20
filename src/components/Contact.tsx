@@ -178,7 +178,7 @@ export const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="0121 529 1701" 
+                        placeholder="0121 453 748" 
                         className="border-border" 
                         disabled={isSubmitting}
                       />
@@ -250,7 +250,7 @@ export const Contact = () => {
                     </div>
                     <div>
                       <div className="font-semibold">Phone</div>
-                      <div className="text-muted-foreground">07398243131</div>
+                      <div className="text-muted-foreground">0121 529 1701</div>
                       <div className="text-sm text-muted-foreground">Mon-Fri 8AM-6PM EST</div>
                     </div>
                   </div>
