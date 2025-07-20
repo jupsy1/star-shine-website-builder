@@ -178,7 +178,7 @@ export const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="07398243131" 
+                        placeholder="0121 529 1701" 
                         className="border-border" 
                         disabled={isSubmitting}
                       />
